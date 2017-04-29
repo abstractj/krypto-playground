@@ -1,3 +1,19 @@
+/**
+ * Copyright 2017 Bruno Oliveira, and individual contributors
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.abstractj;
 
 import org.junit.Before;
@@ -42,7 +58,8 @@ public class AesTest {
 
         cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
         byte[] plaintext = cipher.doFinal(ciphertext);
-        assertEquals(new String(plaintext), MESSAGE);
+        assertEquals("Decrypted ciphertext should be equal to the original message",
+                new String(plaintext), MESSAGE);
     }
 
     @Test
@@ -58,7 +75,8 @@ public class AesTest {
         cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
         byte[] plaintext1 = cipher.doFinal(ciphertext1);
         byte[] plaintext2 = cipher.doFinal(ciphertext2);
-        assertEquals(new String(plaintext1), new String(plaintext2));
+        assertEquals("Decrypted ciphertext should be equal to the original message",
+                new String(plaintext1), new String(plaintext2));
     }
 
     @Test
@@ -71,8 +89,9 @@ public class AesTest {
         cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
         byte[] plaintext = cipher.doFinal(ciphertext);
-        assertNotEquals(new String(plaintext), MESSAGE);
-        assertTrue(new String(plaintext).contains("won"));
+        assertNotEquals("Ciphertext should be different", new String(plaintext), MESSAGE);
+        assertTrue("Message should be decrypted even if the ciphertext was corrupted",
+                new String(plaintext).contains("won"));
     }
 
     @Test
@@ -84,7 +103,8 @@ public class AesTest {
 
         cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
         byte[] plaintext = cipher.doFinal(ciphertext);
-        assertEquals(new String(plaintext), MESSAGE);
+        assertEquals("Decrypted ciphertext should be equal to the original message",
+                new String(plaintext), MESSAGE);
     }
 
     @Test
@@ -100,7 +120,8 @@ public class AesTest {
         cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
         byte[] plaintext1 = cipher.doFinal(ciphertext1);
         byte[] plaintext2 = cipher.doFinal(ciphertext2);
-        assertEquals(new String(plaintext1), new String(plaintext2));
+        assertEquals("Decrypted ciphertext should be equal to the original message",
+                new String(plaintext1), new String(plaintext2));
     }
 
     @Test
@@ -112,8 +133,9 @@ public class AesTest {
         ciphertext[10] = ' ';
         cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
         byte[] plaintext = cipher.doFinal(ciphertext);
-        assertNotEquals(new String(plaintext), MESSAGE);
-        assertTrue(new String(plaintext).contains("won"));
+        assertNotEquals("Ciphertext should be different", new String(plaintext), MESSAGE);
+        assertTrue("Message should be decrypted even if the ciphertext was corrupted",
+                new String(plaintext).contains("won"));
     }
 
     @Test
@@ -125,7 +147,8 @@ public class AesTest {
 
         cipher.init(Cipher.DECRYPT_MODE, secretKey, spec);
         byte[] plaintext = cipher.doFinal(ciphertext);
-        assertEquals(new String(plaintext), MESSAGE);
+        assertEquals("Decrypted ciphertext should be equal to the original message",
+                new String(plaintext), MESSAGE);
     }
 
     @Test
@@ -137,7 +160,7 @@ public class AesTest {
             cipher.doFinal(MESSAGE.getBytes());
             cipher.doFinal(MESSAGE.getBytes());
         } catch (Exception e) {
-            assertTrue(true);
+            assertTrue("Encryption should fail with the reuse of the same Key", true);
         }
     }
 
@@ -152,7 +175,7 @@ public class AesTest {
         try {
             cipher.doFinal(ciphertext);
         } catch (Exception e) {
-            assertTrue(true);
+            assertTrue("Decryption should fail if the ciphertext was corrupted", true);
         }
     }
 }
