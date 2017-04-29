@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/abstractj/krypto-playground.svg?branch=master)](https://travis-ci.org/abstractj/krypto-playground)
+
 Krypto playground
 ===============================================================
 
@@ -5,7 +7,7 @@ This goal is project is to demonstrate the usage of Java Cryptography and of cou
 
 ## Requirements
 
-* JDK 7 or [higher](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Apache Maven](http://maven.apache.org/guides/getting-started/)
 
 ## Usage
